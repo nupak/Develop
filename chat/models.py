@@ -1,5 +1,10 @@
 from django.db import models
 from django.conf import settings
+from asgiref.sync import async_to_sync
+from channels.layers import get_channel_layer
+from .utils import get_room_list
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 class PrivateChatRoom(models.Model):
 
@@ -52,3 +57,24 @@ class RoomChatMessage(models.Model):
 
     def __str__(self):
         return  self.content
+
+
+def send_chat_message(data, channel_name):
+    async_to_sync(get_channel_layer().group_send)(channel_name, data)
+
+
+@receiver(post_save,sender = RoomChatMessage,)
+
+def new_message(sender, instance, created, **kwargs):
+
+    user_1= PrivateChatRoom.objects.get(ins=instance.room).user1
+    user_2= PrivateChatRoom.objects.get(rom=instance.room).user2
+    channel_name_1 = f"Listroom-{user_1}"
+    channel_name_2 = f"Listroom-{user_2}"
+    data_1 = get_room_list(user_1)
+    data_2 = get_room_list(user_2)
+    send_chat_message(data_1, channel_name_1)
+    send_chat_message(data_2, channel_name_2)
+    print(data_1,data_2)
+
+#post_save.connect(new_message, sender=RoomChatMessage, dispatch_uid='new_group_message')

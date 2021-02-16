@@ -49,14 +49,21 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework.authtoken',
-    'main',
+    'djoser',
+    'channels',
     'api.apps.ApiConfig',
     'rest_framework',
     'django_filters',
+    'django_rest_passwordreset',
+
+    'main',
     'chat',
-    'channels',
-    'corsheaders'
+    'passReset',
+
+    'corsheaders',
+
 ]
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'api.authentication.ExpiringTokenAuthentication',
@@ -75,7 +82,11 @@ MIDDLEWARE = [
 ]
 ROOT_URLCONF = 'scientistSite.urls'
 
-
+DJOSER = {
+    'PASSWORD_RESET_CONFIRM_URL':'reset/password/reset/confirm/{uid}/{token}',
+    'LOGIN_FIELD' : 'email',
+    
+}
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -141,6 +152,17 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+PASSWORD_HASHERS = (
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+    'django.contrib.auth.hashers.BCryptPasswordHasher',
+    'django.contrib.auth.hashers.SHA1PasswordHasher',
+    'django.contrib.auth.hashers.MD5PasswordHasher',
+    'django.contrib.auth.hashers.CryptPasswordHasher',
+)
+#Только для DEBUG!
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
@@ -155,9 +177,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 AUTH_USER_MODEL = 'main.scientist'
 

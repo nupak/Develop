@@ -40,12 +40,8 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
         """
         Подключение вэб сокета
         """
-        #print("ChatConsumer: connect: " + str(self.scope["user"]))
         await self.accept()
-        #if 'user' not in self.scope or self.scope['user'].is_anonymous:
-        #    await self._send_message({"detail": "Пользователь не авторизован"})
-        #    await self.close(1000)
-        #    return
+
         print("Есть коннект")
         # Если пользоватеьл в комнате рум айди не пустой
         self.room_id = None
@@ -115,8 +111,6 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
         # Подтверждаем что мы в комнате
         self.room_id = room.id
 
-        #Очитска непрочитанных сообщений
-        #await on_user_connected(room, self.scope["user"])
 
         #Добавление в комнату чата дял получения сообщения(активация подписки)
         await self.channel_layer.group_add(
@@ -190,8 +184,8 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
                 "message": message,
             }
         )
-        self.scope["user"]
-        await roomlistConsumer.send_list(self.scope["user"])
+        #self.scope["user"]
+        #await roomlistConsumer.send_list(self.scope["user"])
 
 
     async def chat_message(self, event):
@@ -256,7 +250,6 @@ class roomlistConsumer(AsyncJsonWebsocketConsumer):
         """
 
         await self.accept()
-
         #print("Есть коннект к листу")
 
         # Если пользоватеьл в комнате рум айди не пустой
@@ -273,6 +266,12 @@ class roomlistConsumer(AsyncJsonWebsocketConsumer):
             user_id = content["user_id"]
             user = await get_user(user_id)
             self.scope["user"] = user
+            roomlist_id = f"Listroom-{self.scope['user']}"
+            await self.channel_layer.group_add(
+                roomlist_id,
+                self.channel_name,
+            )
+
             print("Лист пользователя " + self.scope['user'].username)
         elif command == "get_list":
             user = self.scope['user']

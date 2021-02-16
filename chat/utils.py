@@ -1,9 +1,12 @@
 from datetime import datetime
+from itertools import chain
+
 from django.contrib.humanize.templatetags.humanize import naturalday
 from django.core.serializers.python import Serializer
 
-from chat.models import PrivateChatRoom
 from scientistSite.settings import SITE_NAME
+
+
 
 
 def find_or_create_private_chat(user1, user2):
@@ -55,3 +58,49 @@ class LazyRoomChatMessageEncoder(Serializer):
         dump_object.update({'natural_timestamp': str(obj.timestamp)})
         return dump_object
 
+def get_room_list(user):
+
+    #rooms1 = list(PrivateChatRoom.objects.filter(user1=user, is_active = True))
+    #rooms2 = list (PrivateChatRoom.objects.filter(user2=user, is_active = True))
+    #rooms = rooms1
+    #rooms.append(rooms2)
+    #print(rooms)
+    mes_and_f = []
+    try:
+        rooms1 = PrivateChatRoom.objects.filter(user1=user, is_active=True)
+        rooms2 = PrivateChatRoom.objects.filter(user2=user, is_active=True)
+        rooms = list(chain(rooms1, rooms2))
+    except:
+        return mes_and_f
+    if rooms:
+        for room in rooms:
+            if str(room.user1) == str(user):
+                friend = room.user2
+            else:
+                friend = room.user1
+            mes = RoomChatMessage.objects.get_mes_by_room(room)
+            if mes:
+                print("mes:",mes)
+                mes_and_f.append({
+                    'command':'get_list',
+                    'friend_id':friend.id,
+                    "friend_photo":SITE_NAME+str(friend.image.url),
+                    "friend_name":friend.name,
+                    "friend_surname": friend.surname,
+                    "room_id": room.pk,
+                    "last_message": mes.content,
+                    "timestamp": str(mes.timestamp),
+                    "mes_id": mes.pk
+                })
+            else:
+                mes_and_f.append({
+                    'command': 'get_list',
+                    'friend_id': friend.id,
+                    "friend_photo": SITE_NAME + str(friend.image.url),
+                    "friend_name": friend.name,
+                    "friend_surname": friend.surname,
+                    "room_id": room.pk,
+                    "last_message": "Нет сообщений"
+                })
+
+    return mes_and_f

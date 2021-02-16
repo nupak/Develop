@@ -1,6 +1,6 @@
 from .serializers import *
 from .authentication import ExpiringTokenAuthentication
-
+from django.contrib.auth.hashers import make_password,check_password,is_password_usable
 
 from django_filters.rest_framework import DjangoFilterBackend
 from django.http import HttpResponse,JsonResponse
@@ -180,7 +180,12 @@ class ObtainExpiringAuthToken2(ObtainAuthToken):
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST)
         try:
-            user = User.objects.get(email=email, password=password)
+            user = User.objects.get(email=email)
+            # Проверка старого пароля
+            if check_password(password,user.password):
+                pass
+            else:
+                return Response(status=status.HTTP_401_UNAUTHORIZED)
         except:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
         try:

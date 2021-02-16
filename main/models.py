@@ -274,6 +274,7 @@ class newsSer(models.Model):
         return news.objects.count()
 
 
+
 @receiver(post_save,sender = scientist,)
 def update_profile (sender,instance, **kwargs):
     print("signal")
