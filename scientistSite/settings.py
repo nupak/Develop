@@ -161,8 +161,7 @@ PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.MD5PasswordHasher',
     'django.contrib.auth.hashers.CryptPasswordHasher',
 )
-#Только для DEBUG!
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
@@ -190,3 +189,14 @@ MEDIA_URL = '/media_back/'
 
 STATIC_URL = '/static_back/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static_back")
+
+# Email
+#Только для DEBUG!
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIT_PORT = 465
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'nupak1996@yandex.ru'
+EMAIL_HOST_PASSWORD = 'rctptfmfpdrmttec'
