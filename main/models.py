@@ -76,7 +76,7 @@ okrugListName = {
 
 
 class MyAccountManager(UserManager):
-    def create_user(self, email, username, password=None):
+    def create_user(self, email, username, password):
         if not email:
             raise ValueError('Users must have an email address')
         if not username:
@@ -277,9 +277,9 @@ class newsSer(models.Model):
 
 @receiver(post_save,sender = scientist,)
 def update_profile (sender,instance, **kwargs):
-    print("signal")
     instance.ymapshortcut = instance.getjsonShort2()
     scientist.objects.filter(pk=instance.pk).update(ymapshortcut=instance.ymapshortcut)
+
 
 #post_save.connect(update_profile, sender=, dispatch_uid ='Create new scentist')
 

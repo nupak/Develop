@@ -182,10 +182,15 @@ class ObtainExpiringAuthToken2(ObtainAuthToken):
         try:
             user = User.objects.get(email=email)
             # Проверка старого пароля
-            if check_password(password,user.password):
-                pass
+            print(password,user.password, check_password(password,user.password))
+            if len(str(user.password))<=20:
+                if str(user.password)!=str(password):
+                    return Response(status=status.HTTP_401_UNAUTHORIZED)
             else:
-                return Response(status=status.HTTP_401_UNAUTHORIZED)
+                if check_password(password,user.password):
+                    pass
+                else:
+                    return Response(status=status.HTTP_401_UNAUTHORIZED)
         except:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
         try:
