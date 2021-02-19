@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from django.contrib.auth import get_user_model
 from .serializers import ChangePasswordSerializer
 from rest_framework.permissions import IsAuthenticated
+from api.authentication import ExpiringTokenAuthentication
 
 class ChangePasswordView(generics.UpdateAPIView):
     """
@@ -14,7 +15,7 @@ class ChangePasswordView(generics.UpdateAPIView):
     serializer_class = ChangePasswordSerializer
     model = get_user_model()
     permission_classes = (IsAuthenticated,)
-
+    authentication_classes = (ExpiringTokenAuthentication,)
     def get_object(self, queryset=None):
         obj = self.request.user
         return obj

@@ -4,9 +4,11 @@ from rest_framework.authentication import TokenAuthentication
 from django.http import HttpResponse
 from rest_framework import status
 
+
 class ExpiringTokenAuthentication(TokenAuthentication):
 
-    def authenticate_credentials(self, key):
+    def authenticate_credentials(self, key: object) -> object:
+        print('HI CRED')
         model = self.get_model()
         try:
             token = model.objects.get(key=key)

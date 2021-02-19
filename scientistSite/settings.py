@@ -29,6 +29,12 @@ SITE_NAME = 'https://www.allday.rest'
 ALLOWED_HOSTS = [SITE_NAME,'http://www.allday.rest','www.allday.rest','allday.rest','localhost','165.22.27.247','http://allday.rest','https://allday.rest']
 
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'api.authentication.ExpiringTokenAuthentication',
+    ]
+}
+
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITELIST = [
         'http://localhost',
@@ -43,32 +49,28 @@ CORS_ORIGIN_WHITELIST = [
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'rest_framework.authtoken',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework.authtoken',
-    'djoser',
+
     'channels',
-    'api.apps.ApiConfig',
+
     'rest_framework',
     'django_filters',
     'django_rest_passwordreset',
 
     'main',
+    'api.apps.ApiConfig',
     'chat',
     'passReset',
+
 
     'corsheaders',
 
 ]
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'api.authentication.ExpiringTokenAuthentication',
-    ]
-}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -82,11 +84,6 @@ MIDDLEWARE = [
 ]
 ROOT_URLCONF = 'scientistSite.urls'
 
-DJOSER = {
-    'PASSWORD_RESET_CONFIRM_URL':'reset/password/reset/confirm/{uid}/{token}',
-    'LOGIN_FIELD' : 'email',
-    
-}
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -106,7 +103,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'scientistSite.wsgi.application'
 
 ASGI_APPLICATION = 'scientistSite.routing.application'
-
 CHANNEL_LAYERS = {
     'default':{
         'BACKEND':'channels_redis.core.RedisChannelLayer',

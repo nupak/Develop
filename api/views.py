@@ -123,7 +123,7 @@ class profileDetailsUpdateSet(generics.RetrieveUpdateAPIView):
     """
     queryset = scientist.objects.all()
     serializer_class = profileUpdateDetailSerializer
-    #permission_classes = (IsAuthenticated)
+    permission_classes = (IsAuthenticated)
     authentication_classes = (ExpiringTokenAuthentication, )
 
 
