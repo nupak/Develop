@@ -145,7 +145,7 @@ class scientist(AbstractBaseUser):
     surname             = models.CharField('Фамилия', max_length=60, default="", blank=False)  # Фамилия
     patronymic          = models.CharField('Отчество', max_length=60, default="", blank=True)  # Отчество
     Bigregion           = models.CharField('Федеральный округ', blank=False, max_length=60, choices=okrug_list,
-                                 default='')  # Округ
+                                 default='cfo')  # Округ
     region              = models.CharField('Cубъект', max_length=60, default="", blank=True)  # Субъект
     job_place           = models.CharField('Место работы', max_length=120, default="", blank=True)  # Место работы
     position            = models.CharField('Должность', max_length=120, default="", blank=True)  # Должность

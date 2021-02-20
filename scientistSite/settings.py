@@ -66,8 +66,6 @@ INSTALLED_APPS = [
     'api.apps.ApiConfig',
     'chat',
     'passReset',
-
-
     'corsheaders',
 
 ]
