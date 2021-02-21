@@ -20,13 +20,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '!di0ggq!p_kto1=og+fl3=joy-w-m&b(7&372der6^$ffx$3ec'
+SECRET_KEY = '!di0dwawd2eq4dfsdf443ggq!p_kto1=og+fl3=joy-w-m&b(7&372der6^$ffx$3ec'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-SITE_NAME = 'https://www.allday.rest'
-ALLOWED_HOSTS = [SITE_NAME,'http://www.allday.rest','www.allday.rest','allday.rest','localhost','165.22.27.247','http://allday.rest','https://allday.rest']
+SITE_NAME = 'https://search.ikp-rao.ru'
+ALLOWED_HOSTS = [SITE_NAME,'search.ikp-rao.ru','www.search.ikp-rao.ru','search.ikp-rao.ru','localhost']
 
 
 REST_FRAMEWORK = {
@@ -36,13 +36,13 @@ REST_FRAMEWORK = {
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
-CORS_ORIGIN_WHITELIST = [
-        'http://localhost',
-        'http://165.22.27.247',
+CORS_ORIGIN_WHITELIST = ['https://search.ikp-rao.ru',
+        'https://search.ikp-rao.ru',
+        'https://www.search.ikp-rao.ru',
         'http://0.0.0.0:',
-        'http://allday.rest',
-        'http://www.allday.rest',
         'http://localhost',
+        'https://0.0.0.0:',
+        'https://localhost',
 ]
 
 # Application definition
