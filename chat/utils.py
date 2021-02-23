@@ -1,6 +1,5 @@
 from datetime import datetime
 from itertools import chain
-from chat.models import PrivateChatRoom,RoomChatMessage
 from django.contrib.humanize.templatetags.humanize import naturalday
 from django.core.serializers.python import Serializer
 
