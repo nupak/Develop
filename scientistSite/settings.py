@@ -43,6 +43,11 @@ CORS_ORIGIN_WHITELIST = ['https://search.ikp-rao.ru',
         'http://localhost',
         'https://0.0.0.0:',
         'https://localhost',
+        'https://194.67.116.230:8001',
+        'https://194.67.116.230:8000',
+        'http://194.67.116.230:8001',
+        'http://:194.67.116.230:8000'
+
 ]
 
 # Application definition
