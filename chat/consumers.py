@@ -250,7 +250,7 @@ class roomlistConsumer(AsyncJsonWebsocketConsumer):
         """
 
         await self.accept()
-        #print("Есть коннект к листу")
+        print("Есть коннект к листу")
 
         # Если пользоватеьл в комнате рум айди не пустой
 
