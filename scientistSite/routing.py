@@ -6,10 +6,10 @@ from chat.routing import websocket_urls
 
 application = ProtocolTypeRouter({
     "websocket": (
-        AllowedHostsOriginValidator(
+        #AllowedHostsOriginValidator(
                 URLRouter(
                     websocket_urls
             )
-        )
+        #)
     ),
 })

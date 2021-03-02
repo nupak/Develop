@@ -248,7 +248,7 @@ class roomlistConsumer(AsyncJsonWebsocketConsumer):
         """
         Подключение вэб сокета cообщений
         """
-
+        print('HI!py')
         await self.accept()
         print("Есть коннект к листу")
 

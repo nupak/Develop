@@ -27,7 +27,8 @@ DEBUG = True
 
 SITE_NAME = 'https://search.ikp-rao.ru'
 #SITE_NAME  = 'http://localhost'
-ALLOWED_HOSTS = [SITE_NAME,'search.ikp-rao.ru','www.search.ikp-rao.ru','search.ikp-rao.ru','localhost']
+ALLOWED_HOSTS = [SITE_NAME,'search.ikp-rao.ru','www.search.ikp-rao.ru','search.ikp-rao.ru','localhost','127.0.0.1']
+#ALLOWED_HOSTS = [SITE_NAME,'localhost','127.0.0.1']
 
 
 REST_FRAMEWORK = {
@@ -36,19 +37,22 @@ REST_FRAMEWORK = {
     ]
 }
 
-CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITELIST = ['https://search.ikp-rao.ru',
         'https://search.ikp-rao.ru',
         'https://www.search.ikp-rao.ru',
         'http://0.0.0.0:',
-        'http://localhost',
         'https://0.0.0.0:',
+        'http://localhost',
         'https://localhost',
+        'https://localhost:8000',
+        'https://localhost:8001',
+        'https://127.0.0.1:8000',
+        'https://127.0.0.1:8000',
         'https://194.67.116.230:8001',
         'https://194.67.116.230:8000',
         'http://194.67.116.230:8001',
-        'http://:194.67.116.230:8000'
-
+        'http://:194.67.116.230:8000',
 ]
 
 # Application definition
@@ -111,7 +115,7 @@ CHANNEL_LAYERS = {
     'default':{
         'BACKEND':'channels_redis.core.RedisChannelLayer',
         'CONFIG':{
-            'hosts': [('127.0.0.1','6379')]
+            'hosts': [("localhost", 6379)],
         }
     }
 }
